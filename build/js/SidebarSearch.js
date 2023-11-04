@@ -139,14 +139,24 @@ class SidebarSearch {
 
     const link = navLink.attr('href')
     const name = navLink.find('p').children().remove().end().text()
+    const description = navLink.find('span').children().remove().end().text()
 
     itemObject.name = this._trimText(name)
     itemObject.link = link
     itemObject.path = path
 
+    const itemObject2 = {}
+    if (description != '') {
+      itemObject2.name = this._trimText(description)
+      itemObject2.link = link
+      itemObject2.path = path
+      SearchItems.push(itemObject2)
+    }
+
     if (navTreeview.length === 0) {
       SearchItems.push(itemObject)
     } else {
+      SearchItems.push(itemObject)
       const newPath = itemObject.path.concat([itemObject.name])
       navTreeview.children().each((i, child) => {
         this._parseItem(child, newPath)
